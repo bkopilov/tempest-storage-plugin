@@ -34,3 +34,6 @@ class StorageTempestPlugin(plugins.TempestPlugin):
     def register_opts(self, conf):
         config.register_opt_group(conf, project_config.hypervisor_group,
                                   project_config.HypervisorGroup)
+
+    def get_opt_lists(self):
+        pass
