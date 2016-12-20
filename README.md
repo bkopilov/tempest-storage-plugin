@@ -28,4 +28,8 @@ testr list-tests | grep -i storage
 
 
 Run storage tests:
+
+from tempest directory:
+testr init
+testr list-tests
 testr run [test_name]

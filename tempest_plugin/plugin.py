@@ -19,8 +19,6 @@ import os
 from tempest import config
 from tempest.test_discover import plugins
 
-import config as project_config
-
 
 class StorageTempestPlugin(plugins.TempestPlugin):
 
