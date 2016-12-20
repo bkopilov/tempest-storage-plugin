@@ -7,18 +7,25 @@ Setup steps:
 Prerequisites:
 
 Installed tempest virtual environment.
-Cloned tempest repository.
-Storage plugin setup:
+# git clone tempest upstream code
+git clone https://github.com/openstack/tempest.git
+cd tempest
 
-The tempeset-storage-plugin repository should be cloned near to the main tempest directory.
-$ git clone https://github.com/bkopilov/tempest-storage-plugin.git
+# git clone plugin code
+git clone https://github.com/bkopilov/tempest-storage-plugin.git
 
-Activate the tempest virtual env.
-Browse to the storage_tempest_plugin directory and install the storage plugin:
-$ pip install --upgrade -e .
+cd tempest-storage-plugin.git/tempest_plugin
 
-Test the installed plugin:
-$ pip list |grep -i storage
+# install python packages
+sudo pip install --upgrade -e .
 
-Browse to the main tempest directory and check the newly installed storage plugin:
-$ testr list-tests |grep -i storage
+####
+
+Check testr list-tests:
+cd tempest/
+testr init
+testr list-tests | grep -i storage
+
+
+Run storage tests:
+testr run [test_name]
