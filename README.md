@@ -21,9 +21,8 @@ cd tempest-storage-plugin/tempest_plugin
 
 sudo pip install --upgrade -e .
 
-####
 
-Check testr list-tests:
+# Verify testr list-tests and run:
 
 cd tempest/
 
@@ -31,13 +30,6 @@ testr init
 
 testr list-tests | grep -i storage
 
-
-Run storage tests:
-
-from tempest directory:
-
-testr init
-
-testr list-tests
-
 testr run [test_name]
+
+
