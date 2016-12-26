@@ -7,6 +7,13 @@ from lib.services.volume.v3 import services_client
 from lib.services.volume.v3 import extensions_client
 from lib.services.volume.v3 import limits_client
 from lib.services.volume.v3 import snapshots_client
+from lib.services.volume.v3 import scheduler_stats_client
+from lib.services.volume.v3 import qos_client
+from lib.services.volume.v3 import types_client
+from lib.services.volume.v3 import hosts_client
+from lib.services.volume.v3 import encryption_types_client
+from lib.services.volume.v3 import quotas_client
+from lib.services.volume.v3 import capabilities_client
 
 
 class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
@@ -21,7 +28,7 @@ class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
     @classmethod
     def setup_clients(cls):
         super(BaseVolumeTest, cls).setup_clients()
-        cls.client_manager = cls.get_client_manager()
+        cls.client_manager = cls.get_client_manager(credential_type="primary")
         params = {"auth_provider": cls.client_manager.auth_provider,
                   "service": "volume",
                   "region": "RegionOne"}
@@ -35,6 +42,16 @@ class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
             **params)
         cls.volume_limits_client_v3 = limits_client.LimitsClient(**params)
         cls.snapshots_client_v3 = snapshots_client.SnapshotsClient(**params)
+        cls.scheduler_stats_client_v3 =\
+            scheduler_stats_client.SchedulerStatsClient(**params)
+        cls.volume_qos_client_v3 = qos_client.QosSpecsClient(**params)
+        cls.volume_types_client_v3 = types_client.TypesClient(**params)
+        cls.hosts_client_v3 = hosts_client.HostsClient(**params)
+        cls.encryption_types_client_3 = \
+            encryption_types_client.EncryptionTypesClient(**params)
+        cls.quotas_client_v3 = quotas_client.QuotasClient(**params)
+        cls.capabilities_client_v3 = \
+            capabilities_client.CapabilitiesClient(**params)
 
     @classmethod
     def resource_setup(cls):
@@ -57,7 +74,7 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
     @classmethod
     def setup_clients(cls):
         super(BaseVolumeAdminTest, cls).setup_clients()
-        cls.client_manager = cls.get_client_manager()
+        cls.client_manager = cls.get_client_manager(credential_type="admin")
         params = {"auth_provider": cls.client_manager.auth_provider,
                   "service": "volume",
                   "region": "RegionOne"}
@@ -73,6 +90,16 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
             limits_client.LimitsClient(**params)
         cls.admin_snapshots_client_v3 = \
             snapshots_client.SnapshotsClient(**params)
+        cls.admin_scheduler_stats_client_v3 = \
+            scheduler_stats_client.SchedulerStatsClient(**params)
+        cls.admin_volume_qos_client_v3 = qos_client.QosSpecsClient(**params)
+        cls.admin_volume_types_client_v3 = types_client.TypesClient(**params)
+        cls.admin_hosts_client_v3 = hosts_client.HostsClient(**params)
+        cls.admin_encryption_types_client_3 =\
+            encryption_types_client.EncryptionTypesClient(**params)
+        cls.admin_quotas_client_v3 = quotas_client.QuotasClient(**params)
+        cls.admin_capabilities_client_v3 = \
+            capabilities_client.CapabilitiesClient(**params)
 
     @classmethod
     def resource_setup(cls):
