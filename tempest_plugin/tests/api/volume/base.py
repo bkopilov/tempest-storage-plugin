@@ -23,7 +23,7 @@ class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
         super(BaseVolumeTest, cls).setup_clients()
         cls.client_manager = cls.get_client_manager()
         params = {"auth_provider": cls.client_manager.auth_provider,
-                  "service,": "volume",
+                  "service": "volume",
                   "region": "RegionOne"}
 
         cls.availability_zone_client_v3 = \
@@ -59,7 +59,7 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
         super(BaseVolumeAdminTest, cls).setup_clients()
         cls.client_manager = cls.get_client_manager()
         params = {"auth_provider": cls.client_manager.auth_provider,
-                  "service,": "volume",
+                  "service": "volume",
                   "region": "RegionOne"}
 
         cls.admin_availability_zone_client_v3 = \
@@ -67,10 +67,12 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
         cls.admin_volumes_client_v3 = volumes_client.VolumesClient(**params)
         cls.admin_backups_client_v3 = backups_client.BackupsClient(**params)
         cls.admin_services_client_v3 = services_client.ServicesClient(**params)
-        cls.admin_volumes_extension_client_v3 = extensions_client.ExtensionsClient(
-            **params)
-        cls.admin_volume_limits_client_v3 = limits_client.LimitsClient(**params)
-        cls.admin_snapshots_client_v3 = snapshots_client.SnapshotsClient(**params)
+        cls.admin_volumes_extension_client_v3 =\
+            extensions_client.ExtensionsClient(**params)
+        cls.admin_volume_limits_client_v3 = \
+            limits_client.LimitsClient(**params)
+        cls.admin_snapshots_client_v3 = \
+            snapshots_client.SnapshotsClient(**params)
 
     @classmethod
     def resource_setup(cls):
