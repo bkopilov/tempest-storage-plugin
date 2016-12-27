@@ -28,8 +28,7 @@ class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
     @classmethod
     def setup_clients(cls):
         super(BaseVolumeTest, cls).setup_clients()
-        cls.client_manager = cls.get_client_manager(credential_type="primary")
-        params = {"auth_provider": cls.client_manager.auth_provider,
+        params = {"auth_provider": cls.os.auth_provider,
                   "service": "volume",
                   "region": "RegionOne"}
 
@@ -88,9 +87,7 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
     @classmethod
     def _setup_clients(cls, credential_type):
         if credential_type == "admin":
-            cls.client_manager.os_adm = cls.get_client_manager(
-                credential_type="admin")
-            params = {"auth_provider": cls.client_manager.os_adm.auth_provider,
+            params = {"auth_provider": cls.os_adm.auth_provider,
                       "service": "volume",
                       "region": "RegionOne"}
 
@@ -121,9 +118,7 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
             cls.admin_capabilities_client_v3 = \
                 capabilities_client.CapabilitiesClient(**params)
         elif credential_type == "primary":
-            cls.client_manager.os = cls.get_client_manager(
-                credential_type="primary")
-            params = {"auth_provider": cls.client_manager.os.auth_provider,
+            params = {"auth_provider": cls.os.auth_provider,
                       "service": "volume",
                       "region": "RegionOne"}
 
