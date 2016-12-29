@@ -22,8 +22,8 @@ class VolumePoolsAdminV3TestsJSON(base.BaseVolumeAdminTest):
     @classmethod
     def setup_clients(cls):
         super(VolumePoolsAdminV3TestsJSON, cls).setup_clients()
-        cls.admin_volume_client = cls.admin_volumes_client_v3
-        cls.volumes_client = cls.volumes_client_v3
+        cls.admin_volume_client = cls.admin_volumes_v3_client
+        cls.volumes_client = cls.volumes_v3_client
 
     @classmethod
     def resource_setup(cls):

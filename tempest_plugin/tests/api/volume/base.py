@@ -1,19 +1,6 @@
 
 import tempest.api.volume.base as base_tempest_volume
-from lib.services.volume.v3 import availability_zone_client
-from lib.services.volume.v3 import volumes_client
-from lib.services.volume.v3 import backups_client
-from lib.services.volume.v3 import services_client
-from lib.services.volume.v3 import extensions_client
-from lib.services.volume.v3 import limits_client
-from lib.services.volume.v3 import snapshots_client
-from lib.services.volume.v3 import scheduler_stats_client
-from lib.services.volume.v3 import qos_client
-from lib.services.volume.v3 import types_client
-from lib.services.volume.v3 import hosts_client
-from lib.services.volume.v3 import encryption_types_client
-from lib.services.volume.v3 import quotas_client
-from lib.services.volume.v3 import capabilities_client
+from tempest_storage_plugin.tempest_plugin.tests import clients
 
 
 class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
@@ -28,29 +15,7 @@ class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
     @classmethod
     def setup_clients(cls):
         super(BaseVolumeTest, cls).setup_clients()
-        params = {"auth_provider": cls.os.auth_provider,
-                  "service": "volume",
-                  "region": "RegionOne"}
-
-        cls.availability_zone_client_v3 = \
-            availability_zone_client.AvailabilityZoneClient(**params)
-        cls.volumes_client_v3 = volumes_client.VolumesClient(**params)
-        cls.backups_client_v3 = backups_client.BackupsClient(**params)
-        cls.services_client_v3 = services_client.ServicesClient(**params)
-        cls.volumes_extension_client_v3 = extensions_client.ExtensionsClient(
-            **params)
-        cls.volume_limits_client_v3 = limits_client.LimitsClient(**params)
-        cls.snapshots_client_v3 = snapshots_client.SnapshotsClient(**params)
-        cls.scheduler_stats_client_v3 =\
-            scheduler_stats_client.SchedulerStatsClient(**params)
-        cls.volume_qos_client_v3 = qos_client.QosSpecsClient(**params)
-        cls.volume_types_client_v3 = types_client.TypesClient(**params)
-        cls.hosts_client_v3 = hosts_client.HostsClient(**params)
-        cls.encryption_types_client_3 = \
-            encryption_types_client.EncryptionTypesClient(**params)
-        cls.quotas_client_v3 = quotas_client.QuotasClient(**params)
-        cls.capabilities_client_v3 = \
-            capabilities_client.CapabilitiesClient(**params)
+        cls._setup_clients("primary")
 
     @classmethod
     def resource_setup(cls):
@@ -59,6 +24,44 @@ class BaseVolumeTest(base_tempest_volume.BaseVolumeTest):
     @classmethod
     def resource_cleanup(cls):
         super(BaseVolumeTest, cls).resource_cleanup()
+
+    @classmethod
+    def _setup_clients(cls, credential_type):
+        if credential_type == "admin":
+            manager = clients.Manager(auth_provider=cls.os_adm.auth_provider,
+                                      service="volume", region="RegionOne")
+            cls.admin_availability_zone_v3_client = manager.availability_zone_v3_client
+            cls.admin_volumes_v3_client = manager.volumes_v3_client
+            cls.admin_backups_v3_client = manager.backups_v3_client
+            cls.admin_services_v3_client = manager.services_v3_client
+            cls.admin_volumes_extension_v3_client = manager.volumes_extension_v3_client
+            cls.admin_volume_limits_v3_client = manager.volume_limits_v3_client
+            cls.admin_snapshots_v3_client = manager.snapshots_v3_client
+            cls.admin_scheduler_stats_v3_client = manager.scheduler_stats_v3_client
+            cls.admin_volume_qos_v3_client = manager.volume_qos_v3_client
+            cls.admin_volume_types_v3_client = manager.volume_types_v3_client
+            cls.admin_hosts_v3_client = manager.hosts_v3_client
+            cls.admin_encryption_types_v3_client = manager.encryption_types_v3_client
+            cls.admin_quotas_v3_client = manager.quotas_v3_client
+            cls.admin_capabilities_v3_client = manager.capabilities_v3_client
+
+        elif credential_type == "primary":
+            manager = clients.Manager(auth_provider=cls.os.auth_provider,
+                                      service="volume", region="RegionOne")
+            cls.availability_zone_v3_client = manager.availability_zone_v3_client
+            cls.volumes_v3_client = manager.volumes_v3_client
+            cls.backups_v3_client = manager.backups_v3_client
+            cls.services_v3_client = manager.services_v3_client
+            cls.volumes_extension_v3_client = manager.volumes_extension_v3_client
+            cls.volume_limits_v3_client = manager.volume_limits_v3_client
+            cls.snapshots_v3_client = manager.snapshots_v3_client
+            cls.scheduler_stats_v3_client = manager.scheduler_stats_v3_client
+            cls.volume_qos_v3_client = manager.volume_qos_v3_client
+            cls.volume_types_v3_client = manager.volume_types_v3_client
+            cls.hosts_v3_client = manager.hosts_v3_client
+            cls.encryption_types_v3_client = manager.encryption_types_v3_client
+            cls.quotas_v3_client = manager.quotas_v3_client
+            cls.capabilities_v3_client = manager.capabilities_v3_client
 
 
 class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
@@ -87,59 +90,38 @@ class BaseVolumeAdminTest(base_tempest_volume.BaseVolumeAdminTest):
     @classmethod
     def _setup_clients(cls, credential_type):
         if credential_type == "admin":
-            params = {"auth_provider": cls.os_adm.auth_provider,
-                      "service": "volume",
-                      "region": "RegionOne"}
+            manager = clients.Manager(auth_provider=cls.os_adm.auth_provider,
+                                      service="volume", region="RegionOne")
+            cls.admin_availability_zone_v3_client = manager.availability_zone_v3_client
+            cls.admin_volumes_v3_client = manager.volumes_v3_client
+            cls.admin_backups_v3_client = manager.backups_v3_client
+            cls.admin_services_v3_client = manager.services_v3_client
+            cls.admin_volumes_extension_v3_client = manager.volumes_extension_v3_client
+            cls.admin_volume_limits_v3_client = manager.volume_limits_v3_client
+            cls.admin_snapshots_v3_client = manager.snapshots_v3_client
+            cls.admin_scheduler_stats_v3_client = manager.scheduler_stats_v3_client
+            cls.admin_volume_qos_v3_client = manager.volume_qos_v3_client
+            cls.admin_volume_types_v3_client = manager.volume_types_v3_client
+            cls.admin_hosts_v3_client = manager.hosts_v3_client
+            cls.admin_encryption_types_v3_client = manager.encryption_types_v3_client
+            cls.admin_quotas_v3_client = manager.quotas_v3_client
+            cls.admin_capabilities_v3_client = manager.capabilities_v3_client
 
-            cls.admin_availability_zone_client_v3 = \
-                availability_zone_client.AvailabilityZoneClient(**params)
-            cls.admin_volumes_client_v3 = \
-                volumes_client.VolumesClient(**params)
-            cls.admin_backups_client_v3 = \
-                backups_client.BackupsClient(**params)
-            cls.admin_services_client_v3 = \
-                services_client.ServicesClient(**params)
-            cls.admin_volumes_extension_client_v3 = \
-                extensions_client.ExtensionsClient(**params)
-            cls.admin_volume_limits_client_v3 = \
-                limits_client.LimitsClient(**params)
-            cls.admin_snapshots_client_v3 = \
-                snapshots_client.SnapshotsClient(**params)
-            cls.admin_scheduler_stats_client_v3 = \
-                scheduler_stats_client.SchedulerStatsClient(**params)
-            cls.admin_volume_qos_client_v3 = \
-                qos_client.QosSpecsClient(**params)
-            cls.admin_volume_types_client_v3 = \
-                types_client.TypesClient(**params)
-            cls.admin_hosts_client_v3 = hosts_client.HostsClient(**params)
-            cls.admin_encryption_types_client_3 = \
-                encryption_types_client.EncryptionTypesClient(**params)
-            cls.admin_quotas_client_v3 = quotas_client.QuotasClient(**params)
-            cls.admin_capabilities_client_v3 = \
-                capabilities_client.CapabilitiesClient(**params)
         elif credential_type == "primary":
-            params = {"auth_provider": cls.os.auth_provider,
-                      "service": "volume",
-                      "region": "RegionOne"}
+            manager = clients.Manager(auth_provider=cls.os.auth_provider,
+                                      service="volume", region="RegionOne")
+            cls.availability_zone_v3_client = manager.availability_zone_v3_client
+            cls.volumes_v3_client = manager.volumes_v3_client
+            cls.backups_v3_client = manager.backups_v3_client
+            cls.services_v3_client = manager.services_v3_client
+            cls.volumes_extension_v3_client = manager.volumes_extension_v3_client
+            cls.volume_limits_v3_client = manager.volume_limits_v3_client
+            cls.snapshots_v3_client = manager.snapshots_v3_client
+            cls.scheduler_stats_v3_client = manager.scheduler_stats_v3_client
+            cls.volume_qos_v3_client = manager.volume_qos_v3_client
+            cls.volume_types_v3_client = manager.volume_types_v3_client
+            cls.hosts_v3_client = manager.hosts_v3_client
+            cls.encryption_types_v3_client = manager.encryption_types_v3_client
+            cls.quotas_v3_client = manager.quotas_v3_client
+            cls.capabilities_v3_client = manager.capabilities_v3_client
 
-            cls.availability_zone_client_v3 = \
-                availability_zone_client.AvailabilityZoneClient(**params)
-            cls.volumes_client_v3 = volumes_client.VolumesClient(**params)
-            cls.backups_client_v3 = backups_client.BackupsClient(**params)
-            cls.services_client_v3 = services_client.ServicesClient(**params)
-            cls.volumes_extension_client_v3 = \
-                extensions_client.ExtensionsClient(**params)
-            cls.volume_limits_client_v3 = \
-                limits_client.LimitsClient(**params)
-            cls.snapshots_client_v3 = \
-                snapshots_client.SnapshotsClient(**params)
-            cls.scheduler_stats_client_v3 = \
-                scheduler_stats_client.SchedulerStatsClient(**params)
-            cls.volume_qos_client_v3 = qos_client.QosSpecsClient(**params)
-            cls.volume_types_client_v3 = types_client.TypesClient(**params)
-            cls.hosts_client_v3 = hosts_client.HostsClient(**params)
-            cls.encryption_types_client_3 = \
-                encryption_types_client.EncryptionTypesClient(**params)
-            cls.quotas_client_v3 = quotas_client.QuotasClient(**params)
-            cls.capabilities_client_v3 = \
-                capabilities_client.CapabilitiesClient(**params)

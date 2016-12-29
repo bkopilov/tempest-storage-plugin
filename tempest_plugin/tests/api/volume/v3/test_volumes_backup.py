@@ -27,8 +27,8 @@ class VolumesBackupsV3Test(base.BaseVolumeTest):
     @classmethod
     def setup_clients(cls):
         super(VolumesBackupsV3Test, cls).setup_clients()
-        cls.backups_client = cls.backups_client_v3
-        cls.volumes_client = cls.volumes_client_v3
+        cls.backups_client = cls.backups_v3_client
+        cls.volumes_client = cls.volumes_v3_client
 
     @classmethod
     def skip_checks(cls):

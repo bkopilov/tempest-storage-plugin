@@ -23,8 +23,8 @@ class VolumesV3SnapshotTestJSON(base.BaseVolumeTest):
     @classmethod
     def setup_clients(cls):
         super(VolumesV3SnapshotTestJSON, cls).setup_clients()
-        cls.volumes_client = cls.volumes_client_v3
-        cls.snapshots_client = cls.snapshots_client_v3
+        cls.volumes_client = cls.volumes_v3_client
+        cls.snapshots_client = cls.snapshots_v3_client
 
     @classmethod
     def skip_checks(cls):

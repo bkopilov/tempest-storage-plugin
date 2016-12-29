@@ -23,7 +23,7 @@ class AvailabilityZoneV3TestJSON(base.BaseVolumeAdminTest):
     @classmethod
     def setup_clients(cls):
         super(AvailabilityZoneV3TestJSON, cls).setup_clients()
-        cls.client = cls.admin_availability_zone_client_v3
+        cls.client = cls.admin_availability_zone_v3_client
 
     @test.idempotent_id('01f1ae88-eba9-4c6b-a011-6f7ace06b729')
     def test_get_availability_zone_list(self):

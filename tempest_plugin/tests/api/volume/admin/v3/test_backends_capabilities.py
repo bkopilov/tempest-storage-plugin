@@ -35,8 +35,8 @@ class BackendsCapabilitiesAdminV3TestsJSON(base.BaseVolumeAdminTest):
     @classmethod
     def setup_clients(cls):
         super(BackendsCapabilitiesAdminV3TestsJSON, cls).setup_clients()
-        cls.admin_scheduler_stats_client = cls.admin_scheduler_stats_client_v3
-        cls.admin_capabilities_client = cls.admin_capabilities_client_v3
+        cls.admin_scheduler_stats_client = cls.admin_scheduler_stats_v3_client
+        cls.admin_capabilities_client = cls.admin_capabilities_v3_client
 
     @classmethod
     def resource_setup(cls):

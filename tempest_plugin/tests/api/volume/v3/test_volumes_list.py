@@ -32,7 +32,7 @@ class VolumesV3ListTestJSON(base.BaseVolumeTest):
     @classmethod
     def setup_clients(cls):
         super(VolumesV3ListTestJSON, cls).setup_clients()
-        cls.volumes_client = cls.volumes_client_v3
+        cls.volumes_client = cls.volumes_v3_client
 
     VOLUME_FIELDS = ('id', 'name')
 
